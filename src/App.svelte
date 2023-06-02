@@ -6,7 +6,6 @@
 </script>
 
 <main class="h-screen rounded-md">
-  <div id="background" />
   <Titlebar />
   <Route path="/"><Play /></Route>
   <Route path="/settings"><Settings /></Route>
