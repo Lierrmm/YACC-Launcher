@@ -1,4 +1,32 @@
-<script></script>
+<script>
+  import { YaccState } from "../utils/YaccState";
+  import store from "../stores/stores";
+
+  const launch = () =>
+    !$store.game_path ? store.updateGamePath() : store.LaunchGame();
+
+  const playButtonLabel = () => {
+    if ($store.yacc_is_running) return "YACC is Running";
+
+    switch ($store.yacc_state) {
+      case YaccState.GAME_NOT_FOUND:
+        return "Select Game Directory";
+      case YaccState.INSTALL:
+        return "Install YACC";
+      case YaccState.INSTALLING:
+        return "Installing...";
+      case YaccState.MUST_UPDATE:
+        return "Requires Update";
+      case YaccState.UPDATING:
+        return "Updating...";
+      case YaccState.READY_TO_PLAY:
+        return "Launch Game";
+
+      default:
+        return "";
+    }
+  };
+</script>
 
 <footer class="rounded-lg shadow m-4 ml-12 fixed bottom-8">
   <div>
@@ -13,8 +41,9 @@
   >
     <button
       type="button"
+      on:click={() => launch()}
       class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded text-base px-6 py-3.5 text-center"
-      >Launch Game</button
+      >{playButtonLabel()}</button
     >
   </div>
 </footer>
